@@ -1,0 +1,12 @@
+feathersjs/feathers:
+  destination: ./vendor/feathers
+  type: release
+  allow_prerelease: true
+feathersjs/cli:
+  destination: ./vendor/feathers-cli
+  script: ./bin/cli.js
+  type: tag
+Blizzard/heroprotocol:
+  destination: ./vendor/heroprotocol
+  type: commit
+  commit_re: release
