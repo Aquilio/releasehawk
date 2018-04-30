@@ -20,6 +20,7 @@ const createIssue = require('./utils/create-issue');
 const createLabel = require('./utils/create-label');
 const addLabel = require('./utils/add-label');
 const getFile = require('./utils/get-file');
+const getIssue = require('./utils/get-issue');
 
 /**
  * Get the fatal message from a git command error.
@@ -103,9 +104,16 @@ async function _setup(app, {installationId, repository, basePath}) {
     if(repoEntry.setupId !== null) {
       throw createJobError(`${logPrefix} setup PR has already been created`);
     } else if(repoEntry.issueId !== null) {
-      // Issue PR has been created, so we don't do anything
-      // When the issue is closed, setup will be run again
-      throw createJobError(`${logPrefix} issue has already been created`);
+      // Issue has been created, so we check it's status
+      const issue = await getIssue({
+        github, installationId, owner, repo, number: repoEntry.issueId
+      }).catch(e => {
+        throw createJobError(`${logPrefix} error checking issue status`, e);
+      });
+      if(issue.state !== 'closed') {
+        // Can't do anything until the issue is closed
+        throw createJobError(`${logPrefix} issue has already been created`);
+      }
     }
   }
 
