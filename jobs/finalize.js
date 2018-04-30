@@ -68,10 +68,11 @@ async function _finalize(app, {installationId, repository}) {
       type: settings.type || 'release'
     });
   }));
-  debugger
   console.log(`${logPrefix} Activating repo ${repoEntry.id}`);
   return reposService.patch(repoEntry.id, {
-    active: true
+    active: true,
+    setupId: null,
+    issueId: null
   });
 }
 
