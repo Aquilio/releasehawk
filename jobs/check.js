@@ -193,7 +193,7 @@ async function checkWatch(watch) {
 
   await updateWatch(watch, {
     lastCheckedAt: new Date().getTime(),
-    lastUpdate: change.checksum,
+    // lastUpdate: change.checksum, Only update in the actual release job
     lastUpdatedAt: change.date
   }).catch(e => {
     throw createJobError(`[${owner}/${repo} (${target})] Error updating watch`, e);
