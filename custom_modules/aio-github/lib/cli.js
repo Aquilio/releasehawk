@@ -6,13 +6,19 @@ const getCli = function (userOptions = {}) {
   };
 };
 
-module.exports = async function ({ name, email, options }) {
+module.exports = function ({ name, email, options }) {
   const cli = getCli(options);
-  if (name) {
-    await cli(['config', 'user.name', `"${name}"`]);
-  }
-  if (email) {
-    await cli(['config', 'user.email', `"${email}"`]);
-  }
-  return cli;
+  // Check if cwd is a git directory and set user configs
+  return cli(['rev-parse', '--git-dir']).then(async () => {
+    if (name) {
+      await cli(['config', 'user.name', `"${name}"`]);
+    }
+    if (email) {
+      await cli(['config', 'user.email', `"${email}"`]);
+    }
+    return cli;
+  }).catch(() => {
+    // Not in a git repo so don't set configs
+    return cli;
+  });
 };
