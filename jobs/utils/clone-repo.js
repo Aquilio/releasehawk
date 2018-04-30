@@ -1,7 +1,7 @@
 const fse = require('fs-extra');
 
 /**
- * Clone a repository into a given path
+ * Clone a repository into a given path on the file system
  *
  * @param {Object} options
  * @param {Object} options.github

@@ -1,11 +1,12 @@
 /**
- * Get a repo's information.
- * Retrieves all repos for the `installationId` and then filters on the `repoId`
+ * Get a file from the repo
  * @param {Object} options
  * @param {Object} options.github
  * @param {string|number} options.installationId
- * @param {string} options.repoId id of repository
- * @return {Promise<Object>} the repository
+ * @param {string} options.owner name of owner
+ * @param {string} options.repo name of repo
+ * @param {string} options.path path the file
+ * @return {Promise<Object>}
  */
 async function getFile(
   {github, installationId, owner, repo, path}

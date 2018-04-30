@@ -1,8 +1,7 @@
 const fse = require('fs-extra');
-const getBranch = require('./get-branch');
 
 /**
- * Create a branch
+ * Create a branch on the file system
  *
  * @param {Object} options
  * @param {Object} options.github

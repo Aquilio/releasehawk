@@ -1,13 +1,13 @@
 /**
- * Create a pull request.
+ * Adds a label to an issue.
  * @param {Object} options
  * @param {Object} options.github
  * @param {string|number} options.installationId
- * @param {string} options.branch name of branch
- * @param {string} options.base name of branch
  * @param {string} options.owner owner of repo
  * @param {string} options.repo name of repo
- * @return {Promise<Object>} the repository
+ * @param {string} options.number number of the issue
+ * @param {string} options.labels labels to add to the issue
+ * @return {Promise<Object>}
  */
 async function addLabel(
   {github, installationId, owner, repo, number, labels}

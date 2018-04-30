@@ -1,10 +1,11 @@
 /**
- *
+ * Get the latest commit from a repository
  * @param {Object} options
  * @param {Object} options.github
  * @param {string} options.owner name of owner
  * @param {string} options.repo name of repo
- * @return {Promise<Object>} the repository
+ * @param {string} options.re regex to filter
+ * @return {Promise<Object>}
  */
 async function getLatestCommit(
   {github, owner, repo, re}

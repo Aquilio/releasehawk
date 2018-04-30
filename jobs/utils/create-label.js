@@ -1,11 +1,13 @@
 /**
- * Get a repo's information.
- * Retrieves all repos for the `installationId` and then filters on the `repoId`
+ * Creates a label
  * @param {Object} options
  * @param {Object} options.github
  * @param {string|number} options.installationId
- * @param {string} options.repoId id of repository
- * @return {Promise<Object>} the repository
+ * @param {string} options.owner owner of repo
+ * @param {string} options.repo name of repo
+ * @param {string} options.name name of the label
+ * @param {string} options.color color of the label (hex without the #)
+ * @return {Promise<Object>}
  */
 async function createLabel(
   {github, installationId, owner, repo, name, color}

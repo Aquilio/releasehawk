@@ -1,7 +1,7 @@
 const fse = require('fs-extra');
 
 /**
- * Add current modified files and create a commit
+ * Add current modified files in file system and create a commit
  *
  * @param {Object} options
  * @param {string} options.path path where repo lives

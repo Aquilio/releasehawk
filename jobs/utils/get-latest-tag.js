@@ -1,10 +1,10 @@
 /**
- *
+ * Get the latest tag for a repo
  * @param {Object} options
  * @param {Object} options.github
  * @param {string} options.owner name of owner
  * @param {string} options.repo name of repo
- * @return {Promise<Object>} the repository
+ * @return {Promise<Object>}
  */
 async function getLatestTag(
   {github, installationId, owner, repo}

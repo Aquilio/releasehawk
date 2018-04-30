@@ -1,10 +1,11 @@
 /**
- * Get a repo's information.
- * Retrieves all repos for the `installationId` and then filters on the `repoId`
+ * Get a branch
  * @param {Object} options
  * @param {Object} options.github
  * @param {string|number} options.installationId
- * @param {string} options.repoId id of repository
+ * @param {string} options.owner owner of repo
+ * @param {string} options.repo name of repo
+ * @param {string} options.branch name of the branch
  * @return {Promise<Object>} the repository
  */
 async function getBranch(

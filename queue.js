@@ -1,3 +1,6 @@
+/**
+ * Queued job runner
+ */
 const app = require('./src/app');
 // setup has to be called so services run their setup funtions
 app.setup();

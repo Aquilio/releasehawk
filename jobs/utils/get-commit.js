@@ -1,10 +1,11 @@
 /**
+ * Get a commit
  * @param {Object} options
  * @param {Object} options.github
  * @param {string} options.owner name of owner
  * @param {string} options.repo name of repo
  * @param {string} options.sha sha of tag
- * @return {Promise<Object>} the repository
+ * @return {Promise<Object>}
  */
 async function getCommit(
   {github, installationId, owner, repo, sha}

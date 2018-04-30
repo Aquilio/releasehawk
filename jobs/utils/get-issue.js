@@ -1,5 +1,5 @@
 /**
- * Create a pull request.
+ * Get an issue.
  * @param {Object} options
  * @param {Object} options.github
  * @param {string|number} options.installationId
