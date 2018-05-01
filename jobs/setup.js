@@ -21,6 +21,7 @@ const createLabel = require('./utils/create-label');
 const addLabel = require('./utils/add-label');
 const getFile = require('./utils/get-file');
 const getIssue = require('./utils/get-issue');
+const updateOrCreateRepo = require('./utils/update-create-repo');
 
 /**
  * Get the fatal message from a git command error.
@@ -30,30 +31,6 @@ const getIssue = require('./utils/get-issue');
  */
 function getFatalMessage(error) {
   return error.message.substring(error.message.indexOf('fatal: ')+7).trim();
-}
-
-function updateOrCreateRepo({
-  service, repoEntry, pr, issue, repo, owner, githubId, installationId
-}) {
-  let data = {};
-  if(pr) {
-    data.setupId = pr.number;
-  }
-  if(issue) {
-    data.issueId = issue.number;
-  }
-  if(repoEntry) {
-    return service.patch(repoEntry.id, data);
-  } else {
-    data = Object.assign({}, data, {
-      repo,
-      owner,
-      githubId,
-      installationId,
-      active: false
-    });
-    return service.create(data);
-  }
 }
 
 async function _setup(app, {installationId, repository, basePath}) {
@@ -175,7 +152,7 @@ async function _setup(app, {installationId, repository, basePath}) {
   // Write a starter config file
   console.log(`${logPrefix} Writing starter config file`);
   await writeFile({
-    path: workingPath, name: '.releasehawk.yml', contents: getStarterConfig()
+    path: workingPath, name: configFileName, contents: getStarterConfig()
   }).catch(e => {
     throw createJobError(`${logPrefix} Error writing starter configuration file`, e);
   });
@@ -191,7 +168,7 @@ async function _setup(app, {installationId, repository, basePath}) {
   // Push branch to origin
   console.log(`${logPrefix} Pushing branch '${branchName}'`);
   await pushBranch({
-    github, installationId, owner, repo, path: workingPath, branch: 'releasehawk/initial'
+    github, installationId, owner, repo, path: workingPath, branch: branchName
   }).catch(e => {
     throw createJobError(`${logPrefix} Error pushing branch '${branchName}'`, e);
   });
@@ -205,7 +182,7 @@ async function _setup(app, {installationId, repository, basePath}) {
   // Create a PR
   console.log(`${logPrefix} Creating pull request`);
   const pr = await createPullRequest({
-    github, installationId, owner, repo, head: 'releasehawk/initial', base: defaultBranch, title: 'Test PR for Releasehawk', body: 'Hello from releasehawk!'
+    github, installationId, owner, repo, head: branchName, base: defaultBranch, title: 'Test PR for Releasehawk', body: 'Hello from releasehawk!'
   }).catch (e => {
     throw createJobError(`${logPrefix} Error creating a pull request`, e);
   });
@@ -213,12 +190,12 @@ async function _setup(app, {installationId, repository, basePath}) {
   // Add label
   console.log(`${logPrefix} Adding label to pull request`);
   await addLabel({
-    github, installationId, owner, repo, number: pr.number, labels: ['releasehawk']
+    github, installationId, owner, repo, number: pr.number, labels: [labelName]
   }).catch(e => {
     throw createJobError(`${logPrefix} Error adding label`, e);
   });
 
-  console.log(`${logPrefix} Adding label to pull request`);
+  console.log(`${logPrefix} Updating repo`);
   return updateOrCreateRepo({
     service: reposService, repoEntry, pr, repo, owner, githubId: repoId, installationId
   });

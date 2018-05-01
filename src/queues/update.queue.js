@@ -1,6 +1,6 @@
 module.exports = function (app) {
   const amqpLib = app.get('amqp');
-  const name = 'release';
+  const name = 'update';
 
   const queue = amqpLib.define(name, {
     name,

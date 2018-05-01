@@ -109,4 +109,5 @@ $RECYCLE.BIN/
 *.lnk
 
 # Others
+tmp/
 data/

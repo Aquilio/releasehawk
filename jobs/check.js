@@ -4,7 +4,6 @@
  * configured period. If a new release is present, a `release` job is spawned.
  */
 const parseGitHubUrl = require('parse-github-url');
-const isAfter = require('date-fns/is_after');
 const app = require('../src/app');
 
 const { createJobError } = require('./utils/job-error');
@@ -19,7 +18,7 @@ app.setup();
 
 const github = app.get('github');
 const watchesService = app.service('watches');
-const releaseQueueService = app.service('release-queue');
+const updateQueueService = app.service('update-queue');
 const CHECK_INTERVAL = app.get('checkInterval');
 
 /**
@@ -68,7 +67,8 @@ async function getLatestChange({
   github, installationId, target, type, settings
 }) {
   const { owner, name } = parseGitHubUrl(target);
-  let update;
+  const logPrefix = `[${owner}/${name} (${target})]`;
+  let payload;
   let checksum;
   let date;
   let re = null;
@@ -78,36 +78,36 @@ async function getLatestChange({
     if(settings.commit_re) {
       re = new RegExp(settings.commit_re, 'ig');
     }
-    update = await getLatestCommit({github, owner, repo: name, re}).catch(e => {
-      throw createJobError(`[${owner}/${name} (${target})] Error getting latest commit`, e);
+    payload = await getLatestCommit({github, owner, repo: name, re}).catch(e => {
+      throw createJobError(`${logPrefix} Error getting latest commit`, e);
     });
-    checksum = update.sha;
-    date = update.commit.committer.date;
-    console.log(`[${owner}/${name} (${target})] Latest update is commit ${checksum} from ${date}`);
+    checksum = payload.sha.slice(0, 7);
+    date = payload.commit.committer.date;
+    console.log(`${logPrefix} Latest update is commit ${checksum} from ${date}`);
     break;
   case 'tag':
-    update = await getLatestTag({github, installationId, owner, repo: name}).catch(e => {
-      throw createJobError(`[${owner}/${name} (${target})] Error getting latest tag`, e);
+    payload = await getLatestTag({github, installationId, owner, repo: name}).catch(e => {
+      throw createJobError(`${logPrefix} Error getting latest tag`, e);
     });
-    checksum = update.commit.sha;
+    checksum = payload.name;
     tagCommit = await getCommit({github, installationId, owner, repo: name, sha: checksum}).catch(e => {
-      throw createJobError(`[${owner}/${name} (${target})] Error getting tag commit information`, e);
+      throw createJobError(`${logPrefix} Error getting tag commit information`, e);
     });
     date = tagCommit.commit.committer.date;
-    console.log(`[${owner}/${name} (${target})] Latest update is tag ${update.name}(${checksum}) from ${date}`);
+    console.log(`${logPrefix} Latest update is tag ${payload.name}(${checksum}) from ${date}`);
     break;
   case 'release':
   default:
-    update = await getLatestRelease({github, installationId, owner, repo: name}).catch(e => {
-      throw createJobError(`[${owner}/${name} (${target})] Error getting latest release`, e);
+    payload = await getLatestRelease({github, installationId, owner, repo: name}).catch(e => {
+      throw createJobError(`${logPrefix} Error getting latest release`, e);
     });
-    checksum = update.tag_name;
-    date = update.published_at;
-    console.log(`[${owner}/${name} (${target})] Latest update is release ${checksum} from ${date}`);
+    checksum = payload.tag_name;
+    date = payload.published_at;
+    console.log(`${logPrefix} Latest update is release ${checksum} from ${date}`);
     break;
   }
   return {
-    update,
+    payload,
     checksum,
     date,
     type
@@ -121,8 +121,8 @@ async function processChange({
   const { owner, name } = parseGitHubUrl(watch.target);
 
   const isDifferentType = settings.type !== watch.type;
-  const isNewer = isAfter(change.date, watch.lastUpdatedAt);
-  const isDifferent = updateWatch.checksum !== watch.lastUpdate;
+  // const isNewer = isAfter(change.date, watch.lastUpdatedAt);
+  const isDifferent = change.checksum !== watch.lastUpdate;
 
   if(isDifferentType) {
     await updateWatch(watch, {
@@ -130,26 +130,20 @@ async function processChange({
     });
   }
 
-  if(isDifferentType || (isNewer && isDifferent)) {
-    console.log(`[${owner}/${name} (${watch.target})] Scheduling release job for latest release from ${watch.target}`);
-    promise = scheduleReleaseJob(watch, change);
-  } else {
-    console.log(`[${owner}/${name} (${watch.target})] Latest is up to date`);
+  if(isDifferentType || isDifferent) {
+    return true;
   }
-  return promise;
+  return false;
 }
 
 /**
  * Schedule a release job to process a new release
  *
- * @param {*} watch the watch being checked
- * @param {*} release the latest release
+ * @param {Object} data
  * @return {Promise}
  */
-function scheduleReleaseJob(watch, release) {
-  return releaseQueueService.create({
-    watch, release
-  });
+function scheduleUpdateJob(data) {
+  return updateQueueService.create(data);
 }
 
 /**
@@ -161,18 +155,19 @@ function scheduleReleaseJob(watch, release) {
 async function checkWatch(watch) {
   const { target, lastUpdatedAt, lastUpdate, type } = watch;
   const { installationId, owner, repo, githubId: repoId } = watch.repo;
+  const logPrefix = `[${owner}/${repo} (${target})]`;
 
   // Get config
   const config = await getConfig({
     github, installationId, owner, repo
   }).catch(e => {
-    throw createJobError(`[${owner}/${repo} (${target})] Error getting config`, e);
+    throw createJobError(`${logPrefix} Error getting config`, e);
     // TODO: Create issue
   });
 
   const settings = config[target];
   if(!settings) {
-    throw createJobError(`[${owner}/${repo} (${target})] Settings not found in config, removing...`);
+    throw createJobError(`${logPrefix} Settings not found in config, removing...`);
     //TODO: Remove this watch
   }
 
@@ -180,23 +175,32 @@ async function checkWatch(watch) {
   const change = await getLatestChange({
     github, installationId, target, type, settings
   }).catch(e => {
-    throw createJobError(`[${owner}/${repo} (${target})] Error getting latest change`, e);
+    throw createJobError(`${logPrefix} Error getting latest change`, e);
     // TODO: Create issue
   });
 
-  await processChange({
+  const shouldRelease = await processChange({
     watch, change, settings
   }).catch(e => {
-    throw createJobError(`[${owner}/${repo} (${target})] Error processing latest change`, e);
+    throw createJobError(`${logPrefix} Error processing latest change`, e);
     // TODO: Create issue
   });
+
+  if(shouldRelease) {
+    console.log(`${logPrefix} Scheduling update job for latest change from ${target}`);
+    await scheduleUpdateJob({
+      watch, settings, installationId, change
+    });
+  } else {
+    console.log(`${logPrefix} Latest is up to date`);
+  }
 
   await updateWatch(watch, {
     lastCheckedAt: new Date().getTime(),
     // lastUpdate: change.checksum, Only update in the actual release job
     lastUpdatedAt: change.date
   }).catch(e => {
-    throw createJobError(`[${owner}/${repo} (${target})] Error updating watch`, e);
+    throw createJobError(`${logPrefix} Error updating watch`, e);
   });
   return Promise.resolve(change);
 }

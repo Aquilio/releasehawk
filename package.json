@@ -29,7 +29,8 @@
     "develop": "node -r dotenv/config src/",
     "develop:check": "node -r dotenv/config jobs/check",
     "develop:setup": "QUEUE=setup node -r dotenv/config queue",
-    "develop:release": "QUEUE=release node -r dotenv/config queue",
+    "develop:finalize": "QUEUE=finalize node -r dotenv/config queue",
+    "develop:update": "QUEUE=update node -r dotenv/config queue",
     "develop:sequelize": "node -r dotenv/config node_modules/.bin/sequelize"
   },
   "dependencies": {
@@ -46,6 +47,7 @@
     "cors": "^2.8.4",
     "date-fns": "^1.29.0",
     "debug": "^3.1.0",
+    "download": "^6.2.5",
     "execa": "^0.10.0",
     "feathers-hooks-common": "^4.11.0",
     "feathers-sequelize": "^3.1.0",

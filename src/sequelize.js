@@ -41,7 +41,7 @@ module.exports = function (app) {
   const connectionString = app.get('postgres');
   const sequelize = new Sequelize(connectionString, {
     dialect: 'postgres',
-    logging: console.log,
+    logging: false,
     operatorsAliases,
     define: {
       freezeTableName: true

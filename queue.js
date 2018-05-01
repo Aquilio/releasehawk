@@ -7,7 +7,8 @@ app.setup();
 
 const jobs = {
   setup: require('./jobs/setup'),
-  finalize: require('./jobs/finalize')
+  finalize: require('./jobs/finalize'),
+  update: require('./jobs/update')
 };
 
 const QUEUE_NAME = process.env.QUEUE;
@@ -21,7 +22,7 @@ if(!jobs[QUEUE_NAME]) {
 }
 
 function makeProcessor(channel) {
-  return async function processSetup(msg) {
+  return async function process(msg) {
     console.log(`[${QUEUE_NAME}] Received message`);
     try {
       const result = await jobs[QUEUE_NAME](app, JSON.parse(msg.content.toString()));
@@ -41,6 +42,7 @@ async function startProcessing () {
   const amqpInit = app.get('amqpInit');
   const conn = await amqpInit;
   const channel = await conn.createChannel();
+  // TODO: Handle channel disconnects (retry)
   console.log(`[${QUEUE_NAME}] Channel created`);
   const queue = app.get('amqp').get(QUEUE_NAME) || {};
 

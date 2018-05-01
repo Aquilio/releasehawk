@@ -1,7 +1,7 @@
 const assert = require('assert');
 const app = require('../../src/app');
 
-describe('\'events\' service', () => {
+describe('\'update-queue\' service', () => {
   it('registered the service', () => {
     const service = app.service('release-queue');
 

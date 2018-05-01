@@ -46,7 +46,7 @@ any issues are encountered, an issue will be created instead.
 
 Parses a repo's config file creatings an entry in `watches` for each target.
 
-### Release
+### Update
 
 Clones a repo, downloads the latest version of the target and (optionally) runs
 a script before submitting a PR for the update.

@@ -19,6 +19,7 @@ async function getRepo(
     const token = await github.getInstallationToken(installationId);
     api.authenticate({ type: 'token', token });
     const repositories = (await api.apps.getInstallationRepositories({})).data.repositories;
+    // TODO: Throw error if no repo is found
     return repositories.find(r => r.id === repoId);
   }
   return (await api.repos.get({ owner, repo })).data;
