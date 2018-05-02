@@ -1,36 +1,84 @@
-Let’s get started with automating GitHub release dependency for ${ghRepo.name}
+const md = require('./md');
 
-This pull request creates a sample `.releasehawk.yml` file that you should
-update to point to the repositories you want to watch with the actions you want
-to perform.
+module.exports = ({
+  repo, branch
+}) => md`
+Let's start automating updates for ${repo}!
 
-__Important: Releasehawk will only start watching for release updates after you
-merge this initial pull request.
+This pull request creates a sample <code>.releasehawk.yml</code> file that you should update to point to the targets you want to watch.
+
+__Important: Releasehawk will only start watching for updates after you merge this initial pull request.__
 
 ---
 
-<summary>How to update this pull request</summary>
+<details><summary>How to update this pull request</summary>
+
 \`\`\`bash
   # Change into your repository’s directory
   git fetch
-  git checkout ${newBranch}
+  git checkout ${branch}
   # Update your config file
   git commit -m 'chore: update releasehawk config'
-  git push origin ${newBranch}
+  git push origin ${branch}
 \`\`\`
+</details>
 
-<summary>How do release updates work with Releasehawk?</summary>
-After you merge this pull request, Releasehawk will create a new pull request
-whenever a new release is created in any of the repositories you have configured.
-If we ever run into a problem we'll open an issue.
+<details><summary>How do updates work with Releasehawk?</summary>
 
-<summary>How to update your configuration</summary>
-The only required key is `destination` which is where you want the release placed.
-`script` allows you to run a custom script after the release has been placed in
-`destination`.
-You can add as many releases to your configuration
+After you merge this pull request, Releasehawk will create a new pull request whenever a change is detected in any of the targets you have configured.
+</details>
 
-<summary>Need more help?</summary>
+<details><summary>What can I watch?</summary>
+
+GitHub releases, tags or commits and any file/API response on the internet.
+</details>
+
+<details><summary>What are the configuration options?</summary>
+
+Add any number of targets to your configuration file. A target can be a GitHub
+or file url.
+
+For GitHub urls, you can watch for 3 type of updates: <code>commit, release, or tag</code>.
+Put one of these as the <code>type</code>.
+
+For commits, you can filter by a Regex using <code>commit_re</code>.
+
+For a file url, the only type is <code>file</code>.
+
+The change will be placed in the folder specififed by <code>destination</code>.
+
+You can run a script after the update is downloaded with <code>script</code>.
+
+Example:
+
+\`\`\`yaml
+  # GitHub Release
+  facebook/create-react-app
+    - type: release
+    - destination: ./vendor/cra
+    - script: ./bin/update-cra.sh
+  # GitHub Commit with filter
+  feathersjs/feathers
+    - type: commit
+    - commit_re: chaore(package)
+    - destination: ./vendor/feathers
+  # File or API endpoint
+  https://sps-opendata.pilotsmartke.gov.hk/rest/getCarparkInfos
+    - type: file
+    - destination: ./data/carpark
+    - script: ./bin/process-data.js
+\`\`\`
+</details>
+
+<details><summary>Need more help?</summary>
+
 We curate a list of [frequently asked questions](https://releasehawk.com/faq).
 If those don’t help, you can always [ask the humans](https://releasehawk.com/contact) behind Releasehawk.
+</details>
 
+---
+
+Good luck with your project!
+
+Your [Releasehawk](https://releasehawk.com) bot
+`;

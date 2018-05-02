@@ -1,8 +1,14 @@
-# ReleaseHawk
+# Releasehawk
 
-Keeps your repo up to date with commits, releases or tags from other repos.
+## Getting Started
 
-## Environment Variables
+- Install Node > 8.9
+- Install [Postgres](https://www.postgresql.org/download/)
+- Install [RabbitMQ](https://www.rabbitmq.com/download.html)
+- Clone this repo
+- Create `.env` file [details below](#environment-variables)
+
+### Environment Variables
 
 Create an `.env` file and populate it with the values for the following variables:
 
@@ -18,11 +24,30 @@ Create an `.env` file and populate it with the values for the following variable
 - __WORK_PATH__: Local directory where repos are cloned and worked on
 - __CHECK_INTERVAL__: Time in ms before a check is considered out of date
 
+## Running the Application Locally
+
+- Start RabbitMQ server
+- Run migrations `yarn run develop:sequelize db:migrate`
+- Run `yarn run develop`
+
+### Running a job
+
+`yarn run develop:<job name>`
+
+All __`develop:`__ scripts use the environment variables from your `.env` file so it is required
+when running locally.
+
+## Deploying
+
+`git push heroku master`
+
+---
+
 ## Data Structure
 
 ### Repositories (`repos`)
 
-Stores each repo ReleaseHawk is installed on along with the `installationId`.
+Stores each repo Releasehawk is installed on along with the `installationId`.
 
 ### Watches (`watches`)
 
@@ -32,21 +57,29 @@ was checked.
 
 ## Background Tasks
 
-### Check
+### check
 
 This is a periodic task that checks if there is a newer or different release than
-the current one recorded in the DB.
+the current one recorded in the DB. This will also remove any watches not in the 
+repo's config.
 
-### Setup
+### check-settings
+
+This is a periodic task that checks if there are changes in a watch's config.
+New targets are added as watches.
+
+## RabbitMQ Jobs
+
+### setup
 
 Clones the repo and creates a PR with a starter config file and instructions. If
 any issues are encountered, an issue will be created instead.
 
-### Finalize
+### finalize
 
-Parses a repo's config file creatings an entry in `watches` for each target.
+Parses a repo's config file creating an entry in `watches` for each target.
 
-### Update
+### update
 
 Clones a repo, downloads the latest version of the target and (optionally) runs
 a script before submitting a PR for the update.
@@ -59,11 +92,7 @@ Releasehawk listens to `installation`, `installation_repository`, `pull_request`
 `issue` events from each repository.
 
 Incoming events are verified by matching the `X-Event-Signature` with a signature
-created using ReleaseHawk's webhook secret.
-
-## Future Plans
-
-Allow files to be a target.
+created using Releasehawk's webhook secret.
 
 ## Changelog
 

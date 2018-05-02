@@ -19,6 +19,7 @@ const pushBranch = require('./utils/push-branch');
 const createPullRequest = require('./utils/create-pull-request');
 const addLabel = require('./utils/add-label');
 const isDirty = require('./utils/is-dirty');
+const getUpdatePRContent = require('../content/update-pr');
 
 async function _update(app, {installationId, watch, settings, change, basePath}) {
   const reposService = app.service('repos');
@@ -132,7 +133,7 @@ async function _update(app, {installationId, watch, settings, change, basePath})
     // Create a PR
     console.log(`${logPrefix} Creating pull request`);
     const pr = await createPullRequest({
-      github, installationId, owner, repo, head: branchName, base: repository.default_branch, title: `Update ${watch.target} to latest version`, body: `Upgrading ${watch.target} to ${change.checksum}.`
+      github, installationId, owner, repo, head: branchName, base: repository.default_branch, title: `Update ${watch.target} to ${change.checksum}`, body: getUpdatePRContent({ type: watch.type, target: watch.target})
     }).catch (e => {
       throw createJobError(`${logPrefix} Error creating a pull request`, e);
     });

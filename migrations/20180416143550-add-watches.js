@@ -16,7 +16,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       type: {
-        type: Sequelize.ENUM('release', 'commit', 'tag'),
+        type: Sequelize.ENUM('release', 'commit', 'tag', 'file'),
         defaultValue: 'release'
       },
       lastUpdatedAt: {

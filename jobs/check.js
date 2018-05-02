@@ -6,12 +6,17 @@
 const parseGitHubUrl = require('parse-github-url');
 const app = require('../src/app');
 
+const crypto = require('crypto');
+const path = require('path');
+const uuidv4 = require('uuid/v4');
+const fse = require('fs-extra');
 const { createJobError } = require('./utils/job-error');
 const getConfig = require('./utils/get-config');
 const getLatestRelease = require('./utils/get-latest-release');
 const getLatestTag = require('./utils/get-latest-tag');
 const getLatestCommit = require('./utils/get-latest-commit');
 const getCommit = require('./utils/get-commit');
+const downloadFile = require('./utils/download-file');
 
 // setup has to be called so services run their setup funtions
 app.setup();
@@ -64,10 +69,10 @@ function updateWatch(watch, update) {
  * @return {Object} the latest update
  */
 async function getLatestChange({
-  github, installationId, target, type, settings
+  github, installationId, target, type, settings, workingPath
 }) {
   const { owner, name } = parseGitHubUrl(target);
-  const logPrefix = `[${owner}/${name} (${target})]`;
+  const logPrefix = `[${target}]`;
   let payload;
   let checksum;
   let date;
@@ -95,6 +100,14 @@ async function getLatestChange({
     });
     date = tagCommit.commit.committer.date;
     console.log(`${logPrefix} Latest update is tag ${payload.name}(${checksum}) from ${date}`);
+    break;
+  case 'file':
+    payload = await downloadFile({url: target, dest: workingPath}).catch(e => {
+      throw createJobError(`${logPrefix} Error getting latest file`, e);
+    });
+    checksum = crypto.createHash('md5').update(payload).digest('hex'); //MD5 hash of content
+    date = new Date();
+    console.log(`${logPrefix} Latest update for file is ${checksum}`);
     break;
   case 'release':
   default:
@@ -152,7 +165,7 @@ function scheduleUpdateJob(data) {
  * @param {*} watch the watch being processed
  * @return {Promise<Array>}
  */
-async function checkWatch(watch) {
+async function checkWatch(watch, basePath) {
   const { target, lastUpdatedAt, lastUpdate, type } = watch;
   const { installationId, owner, repo, githubId: repoId } = watch.repo;
   const logPrefix = `[${owner}/${repo} (${target})]`;
@@ -167,13 +180,15 @@ async function checkWatch(watch) {
 
   const settings = config[target];
   if(!settings) {
-    throw createJobError(`${logPrefix} Settings not found in config, removing...`);
-    //TODO: Remove this watch
+    await watchesService.remove(watch.id).catch(e => {
+      throw createJobError(`${logPrefix} Error removing watch after it was not found in config`, e);
+    });
+    console.log(`${logPrefix} Watch not found in config so it was removed.`);
   }
 
   // Get latest update
   const change = await getLatestChange({
-    github, installationId, target, type, settings
+    github, installationId, target, type, settings, workingPath: basePath
   }).catch(e => {
     throw createJobError(`${logPrefix} Error getting latest change`, e);
     // TODO: Create issue
@@ -207,6 +222,7 @@ async function checkWatch(watch) {
 
 async function check() {
   console.log('Starting check script');
+  const basePath = path.join(process.cwd(), app.get('workPath'), uuidv4());
   const watchesToCheck = await findWatchesToCheck().catch(e => {
     throw createJobError('Error finding watches to check', e);
   });
@@ -214,9 +230,10 @@ async function check() {
   return Promise.all(watchesToCheck.map(watch => {
     let promise = Promise.resolve();
     try {
-      promise = checkWatch(watch);
+      promise = checkWatch(watch, basePath);
     } catch(e) {
-      console.error(e);
+      fse.removeSync(basePath);
+      promise = Promise.reject(e);
     }
     return promise;
   }));

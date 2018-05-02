@@ -4,8 +4,9 @@
  * @return {Object} the latest update
  */
 
-const download = require('download');
 const parseGitHubUrl = require('parse-github-url');
+const downloadFile = require('./download-file');
+
 module.exports = async function downloadLatestChange({
   target, change, path
 }) {
@@ -23,8 +24,13 @@ module.exports = async function downloadLatestChange({
   case 'release':
     url = `https://github.com/${owner}/${name}/archive/${change.payload.tag_name}.zip`;
     break;
+  case 'file':
+    url = target;
+    break;
   default:
     break;
   }
-  return download(url, path, { extract: true, strip: 1, mode: '666', headers: { accept: 'application/zip' } });
+  return downloadFile({
+    url, dest: path
+  });
 };

@@ -22,6 +22,7 @@ const addLabel = require('./utils/add-label');
 const getFile = require('./utils/get-file');
 const getIssue = require('./utils/get-issue');
 const updateOrCreateRepo = require('./utils/update-create-repo');
+const getInitialPRContent = require('../content/initial-pr');
 
 /**
  * Get the fatal message from a git command error.
@@ -182,7 +183,7 @@ async function _setup(app, {installationId, repository, basePath}) {
   // Create a PR
   console.log(`${logPrefix} Creating pull request`);
   const pr = await createPullRequest({
-    github, installationId, owner, repo, head: branchName, base: defaultBranch, title: 'Test PR for Releasehawk', body: 'Hello from releasehawk!'
+    github, installationId, owner, repo, head: branchName, base: defaultBranch, title: 'Setup Releasehawk', body: getInitialPRContent({ repo: `${owner}/${repo}`, branch: branchName})
   }).catch (e => {
     throw createJobError(`${logPrefix} Error creating a pull request`, e);
   });

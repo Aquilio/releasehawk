@@ -1,4 +1,5 @@
 const dehydrate = require('feathers-sequelize/hooks/dehydrate');
+const { disablePagination } = require('feathers-hooks-common');
 
 function includeWatches() {
   return function(context) {
@@ -16,7 +17,7 @@ function includeWatches() {
 module.exports = {
   before: {
     all: [],
-    find: [includeWatches()],
+    find: [disablePagination(), includeWatches()],
     get: [includeWatches()],
     create: [],
     update: [],
