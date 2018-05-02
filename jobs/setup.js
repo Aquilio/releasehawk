@@ -23,6 +23,7 @@ const getFile = require('./utils/get-file');
 const getIssue = require('./utils/get-issue');
 const updateOrCreateRepo = require('./utils/update-create-repo');
 const getInitialPRContent = require('../content/initial-pr');
+const getConfigExistsPRContent = require('../content/config-exists');
 
 /**
  * Get the fatal message from a git command error.
@@ -110,6 +111,11 @@ async function _setup(app, {installationId, repository, basePath}) {
     }).catch(e => {
       throw createJobError(`${logPrefix} error creating repo after config file was found`, e);
     });
+    await createIssue({
+      github, installationId, owner, repo, title: 'Releasehawk is ready', body: getConfigExistsPRContent({ repo: `${owner}/${repo}`}), labels: [labelName]
+    }).catch(e => {
+      throw createJobError(`${logPrefix} Error creating an issue after cloning repository failed`, e);
+    });
     return finalizeQueue.create({installationId, repository});
   }
 
@@ -183,7 +189,7 @@ async function _setup(app, {installationId, repository, basePath}) {
   // Create a PR
   console.log(`${logPrefix} Creating pull request`);
   const pr = await createPullRequest({
-    github, installationId, owner, repo, head: branchName, base: defaultBranch, title: 'Setup Releasehawk', body: getInitialPRContent({ repo: `${owner}/${repo}`, branch: branchName})
+    github, installationId, owner, repo, head: branchName, base: defaultBranch, title: 'Setup Releasehawk', body: getInitialPRContent({ repo: `${owner}/${repo}`, branch: branchName}), labels: [labelName]
   }).catch (e => {
     throw createJobError(`${logPrefix} Error creating a pull request`, e);
   });
