@@ -8,9 +8,11 @@
  * @return {Promise<Object>}
  */
 async function getLatestCommit(
-  {github, owner, repo, re}
+  {github, installationId, owner, repo, re}
 ) {
   const api = github.getApi();
+  const token = await github.getInstallationToken(installationId);
+  api.authenticate({ type: 'token', token });
   const commits = (await api.repos.getCommits({ owner, repo })).data;
   if(re) {
     return commits.filter(({commit}) => {
