@@ -50,21 +50,28 @@ async function _finalize(app, {installationId, repository}) {
   await Promise.all(Object.keys(config).map(async (target) => {
     console.log(`${logPrefix} Parsing settings for '${target}'`);
     const settings = config[target];
-    const { owner, name } = parseGitHubUrl(target);
-    try {
-      await getRepo({
-        github, owner, repo: name
-      });
-    } catch (e) {
-      debugger
-      // Could not get the repo
-      // TOTO: Create an issue
-      return Promise.resolve();
+    let targetName;
+    if(settings.type !== 'file') {
+      const { owner, name } = parseGitHubUrl(target);
+      targetName = `${owner}/${name}`;
+      try {
+        await getRepo({
+          github, owner, repo: name
+        });
+      } catch (e) {
+        debugger
+        // Could not get the repo
+        // TOTO: Create an issue
+        return Promise.resolve();
+      }
+    } else {
+      // TODO: validate existance of file
+      targetName = target;
     }
     console.log(`${logPrefix} Creating a watch for '${target}'`);
     return watchesService.create({
       repoId: repoEntry.id,
-      target: `${owner}/${name}`,
+      target: targetName,
       type: settings.type || 'release'
     });
   }));

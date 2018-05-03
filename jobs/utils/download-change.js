@@ -8,7 +8,7 @@ const parseGitHubUrl = require('parse-github-url');
 const downloadFile = require('./download-file');
 
 module.exports = async function downloadLatestChange({
-  target, change, path
+  target, change, path, settings
 }) {
   const { owner, name } = parseGitHubUrl(target);
   let url;
@@ -25,7 +25,7 @@ module.exports = async function downloadLatestChange({
     url = `https://github.com/${owner}/${name}/archive/${change.payload.tag_name}.zip`;
     break;
   case 'file':
-    url = target;
+    url = settings.url;
     break;
   default:
     break;

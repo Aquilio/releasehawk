@@ -102,7 +102,7 @@ async function getLatestChange({
     console.log(`${logPrefix} Latest update is tag ${payload.name}(${checksum}) from ${date}`);
     break;
   case 'file':
-    payload = await downloadFile({url: target, dest: workingPath}).catch(e => {
+    payload = await downloadFile({url: settings.url, dest: workingPath}).catch(e => {
       throw createJobError(`${logPrefix} Error getting latest file`, e);
     });
     checksum = crypto.createHash('md5').update(payload).digest('hex'); //MD5 hash of content

@@ -72,7 +72,7 @@ async function _update(app, {installationId, watch, settings, change, basePath})
 
   // Download change
   await downloadChange({
-    target: watch.target, change, path: changePath
+    target: watch.target, change, path: changePath, settings
   }).catch(e => {
     throw createJobError(`${logPrefix} Error downloading latest ${change.type}`, e);
   });

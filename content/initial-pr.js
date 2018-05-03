@@ -43,7 +43,7 @@ Put one of these as the <code>type</code>.
 
 For commits, you can filter by a Regex using <code>commit_re</code>.
 
-For a file url, the only type is <code>file</code>.
+For a file, the only type is <code>file</code>. <code>url</code> is the full URL to the file.
 
 The change will be placed in the folder specififed by <code>destination</code>.
 
