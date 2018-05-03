@@ -83,7 +83,7 @@ async function getLatestChange({
     if(settings.commit_re) {
       re = new RegExp(settings.commit_re, 'ig');
     }
-    payload = await getLatestCommit({github, owner, repo: name, re}).catch(e => {
+    payload = await getLatestCommit({github, installationId, owner, repo: name, re}).catch(e => {
       throw createJobError(`${logPrefix} Error getting latest commit`, e);
     });
     checksum = payload.sha.slice(0, 7);
