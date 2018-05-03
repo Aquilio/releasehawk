@@ -17,6 +17,10 @@ async function runScript({
   }
   const args = script.split(' ');
   const command = args.pop();
+  // Ensure script is executable
+  await execa('chmod', ['a+x', command], {
+    cwd: path
+  });
   return execa(command, args, {
     cwd: path
   });
