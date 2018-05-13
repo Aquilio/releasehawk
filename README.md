@@ -1,4 +1,4 @@
-# Releasehawk
+# ReleaseHawk
 
 ## Getting Started
 
@@ -47,7 +47,7 @@ when running locally.
 
 ### Repositories (`repos`)
 
-Stores each repo Releasehawk is installed on along with the `installationId`.
+Stores each repo ReleaseHawk is installed on along with the `installationId`.
 
 ### Watches (`watches`)
 
@@ -88,11 +88,11 @@ a script before submitting a PR for the update.
 
 ### Events
 
-Releasehawk listens to `installation`, `installation_repository`, `pull_request` and
+ReleaseHawk listens to `installation`, `installation_repository`, `pull_request` and
 `issue` events from each repository.
 
 Incoming events are verified by matching the `X-Event-Signature` with a signature
-created using Releasehawk's webhook secret.
+created using ReleaseHawk's webhook secret.
 
 ## Changelog
 

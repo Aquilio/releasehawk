@@ -8,11 +8,12 @@ A new ${type === 'file' ? 'update' : type} was just found for ${target}.
 ---
 
 <details><summary>Need more help?</summary>
+
 We curate a list of [frequently asked questions](https://releasehawk.com/faq).
-If those don’t help, you can always [ask the humans](https://releasehawk.com/contact) behind Releasehawk.
+If those don’t help, you can always [ask the humans](https://releasehawk.com/contact) behind ReleaseHawk.
 </details>
 
 ---
 
-Your [Releasehawk](https://releasehawk.com) bot
+Your [ReleaseHawk](https://releasehawk.com) bot
 `;
