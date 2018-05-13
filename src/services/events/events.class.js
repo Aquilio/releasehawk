@@ -10,10 +10,22 @@ class Service {
     this.app = app;
   }
 
-  processAddedRepositories (installationId, repositories) {
+  async processAddedRepositories (installationId, repositories) {
     const setupQueue = this.app.service('setup-queue');
-    return Promise.all(repositories.map(repo => {
-      return setupQueue.create({installationId, repository: repo});
+    const reposService = this.app.service('repos');
+
+
+    return Promise.all(repositories.map(async (repo) => {
+      const repoResult = await reposService.find({
+        query: {
+          installationId,
+          githubId: repo.id
+        }
+      });
+      if(repoResult.total === 0) {
+        return setupQueue.create({installationId, repository: repo});
+      }
+      return Promise.resolve();
     }));
   }
 
