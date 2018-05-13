@@ -16,8 +16,14 @@ module.exports = function() {
     const payload = JSON.stringify(context.data);
     const eventSignature = context.params.headers['x-hub-signature'];
 
-    const computedSignature = `sha1=${crypto.createHmac('sha1', webhookSecret).update(payload).digest('hex')}`;
     return new Promise((resolve, reject) => {
+
+      if(typeof eventSignature === 'undefined') {
+        reject(new errors.BadRequest('event signature is not present'));
+      }
+
+      const computedSignature = `sha1=${crypto.createHmac('sha1', webhookSecret).update(payload).digest('hex')}`;
+
       if(crypto.timingSafeEqual(Buffer.from(eventSignature), Buffer.from(computedSignature))) {
         resolve();
       }

@@ -47,8 +47,7 @@ function findWatchesToCheck() {
         }
       ],
       $limit: -1,
-      active: true,
-      expand: 'repo'
+      active: true
     },
   });
 }
