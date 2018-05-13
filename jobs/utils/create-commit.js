@@ -16,7 +16,7 @@ async function createCommit(
   }
   const cli = await github.getCli({
     name: 'releasehawk[bot]',
-    email: 'releasehawk@aquil.io',
+    email: 'bot@releasehawk.com',
     options: {
       cwd: path
     }
