@@ -1,4 +1,4 @@
-const logErrorWithRollbar = require('rollbar');
+const logErrorWithRollbar = require('./hooks/rollbar');
 
 module.exports = {
   before: {

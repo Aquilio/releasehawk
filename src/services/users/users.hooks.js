@@ -3,6 +3,8 @@ const { authenticate } = require('@feathersjs/authentication').hooks;
 const { iff, isNot, preventChanges, disallow, some } = require('feathers-hooks-common');
 const { isAdmin, isOwner } = require('../../hooks/predicates');
 
+const ownerOrAdmin = () => context => Promise.resolve(some(isOwner({ idField: 'id', ownerField: 'id' }), isAdmin()));
+
 module.exports = {
   before: {
     all: [],
@@ -13,14 +15,14 @@ module.exports = {
     patch: [
       authenticate('jwt'),
       // Only user or admin can change a user
-      iff(isNot(some(isOwner(), isAdmin())), disallow()),
+      iff(isNot(ownerOrAdmin()), disallow()),
       // Prevent a user from changing isAdmin flag
       iff(isNot(isAdmin()), preventChanges(false, ['isAdmin'])),
     ],
     remove: [
       authenticate('jwt'),
       // Only an admin can remove a user
-      iff(isNot(isAdmin()), disallow())
+      iff(isNot(isAdmin(), disallow()))
     ]
   },
 
