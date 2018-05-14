@@ -9,6 +9,10 @@
     "default": 10,
     "max": 50
   },
+  "rollbar": {
+    "endpoint": "ROLLBAR_ENDPOINT",
+    "token": "ROLLBAR_ACCESS_TOKEN"
+  },
   "checkInterval": "CHECK_INTERVAL",
   "workPath": "WORK_PATH",
   "postgres": "DATABASE_URL",
@@ -20,7 +24,7 @@
     "color": "000000"
   },
   "authentication": {
-    "secret": "9f082af4fd00c838dc95b018c38d0dab1ef90e1e5dff8c591eeba91f3ec9f23100b5c8bcb1d85f772f22588de3e47019755614f16a0140fd5f73902107c357c699572751df7b7a085a83963b1e21829b852902f7138944c060bf879b929e1b4abeb37642e3ad04bcdd1c99450dbc5df10df0552cff08d5520d0d336fac907aa6f4667e63175b1d0e09e03cf701c85caad415236f4c352b4e8e50f9075c273e7c41a80b15c359cd2b7bf76ae4a4676bbd8a7521a7b19960a05d3293c32b64885230bc0d4e0c6fa0fc4cf8057ec970b59bb06d053e4f8c5d6054f534b809e1bca5b7b7096c82b42ce4ba75b760a1b8c760ca4ac31ca9fca6c1b08faa1a064540b7",
+    "secret": "FEATHERS_AUTH_SECRET",
     "strategies": [
       "jwt"
     ],
@@ -30,7 +34,7 @@
       "header": {
         "typ": "access"
       },
-      "audience": "https://yourdomain.com",
+      "audience": "https://releasehawk.com",
       "subject": "anonymous",
       "issuer": "feathers",
       "algorithm": "HS256",

@@ -47,18 +47,6 @@ async function _update(app, {installationId, watch, settings, change, basePath})
   await cloneRepo({
     github, installationId, owner, repo, path: repoPath, branch: repository.default_branch
   }).catch(async e => {
-    const issue = await createIssue({
-      github, installationId, owner, repo, title: 'Uh Oh', body: `There was a problem cloning your repository\nGit said"${getFatalMessage(e)}"\n`, labels: [labelName]
-    }).catch(e => {
-      throw createJobError(`${logPrefix} Error creating an issue after cloning repository failed`, e);
-    });
-    if(issue) {
-      await updateOrCreateRepo({
-        service: reposService, repoEntry: watch.repo, issue, repo, owner, githubId: watch.repo.githubId, installationId
-      }).catch(e => {
-        throw createJobError(`${logPrefix} Error updating repo after creating when cloning repository failed`, e);
-      });
-    }
     throw createJobError(`${logPrefix} Error cloning repository`, e);
   });
 
