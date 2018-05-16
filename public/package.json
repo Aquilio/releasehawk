@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "css-build": "npm run css-compile && npm run css-postcss && node_modules/.bin/cleancss -o css/main.css css/main.css",
-    "css-compile": "node-sass _sass/main.scss css/main.css",
-    "css-postcss": "postcss --use autoprefixer --output css/main.css css/main.css",
+    "css-compile": "node_modules/.bin/node-sass _sass/main.scss css/main.css",
+    "css-postcss": "node_modules/.bin/postcss --use autoprefixer --output css/main.css css/main.css",
     "css-watch": "npm run css-compile -- --watch",
     "js-build": "npm run js-compile && node_modules/.bin/uglifyjs js/main.js -o js/main.js",
     "js-compile": "babel _js --out-dir js",
