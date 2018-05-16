@@ -1,0 +1,38 @@
+/**
+
+  Customized Bulma
+
+*/
+
+@import "../node_modules/bulma/sass/utilities/initial-variables";
+@import "../node_modules/bulma/sass/utilities/functions";
+
+/* Variable Overrides */
+
+$orange: hsl(27, 96%, 48%);
+$orange-invert: findColorInvert($orange);
+$grey-dark: #00120b;
+
+$primary:$orange;
+$primary-invert: $orange-invert;
+
+$family-serif: "Lato", "Verdana", serif;
+$family-primary: $family-serif;
+
+$title-color: #011936;
+$subtitle-color: #617073;
+$background: #fefffe;
+$link: #617073;
+
+
+@import "./node_modules/bulma/sass/utilities/_all";
+@import "./node_modules/bulma/sass/base/_all";
+@import "./node_modules/bulma/sass/components/navbar";
+@import "./node_modules/bulma/sass/elements/box";
+@import "./node_modules/bulma/sass/elements/button";
+@import "./node_modules/bulma/sass/elements/container";
+@import "./node_modules/bulma/sass/elements/content";
+@import "./node_modules/bulma/sass/elements/image";
+@import "./node_modules/bulma/sass/elements/title";
+@import "./node_modules/bulma/sass/grid/columns";
+@import "./node_modules/bulma/sass/layout/_all";

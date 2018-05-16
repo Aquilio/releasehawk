@@ -73,8 +73,8 @@ Example:
 
 <details><summary>Need more help?</summary>
 
-We curate a list of [frequently asked questions](https://releasehawk.com/faq).
-If those don’t help, you can always [ask the humans](https://releasehawk.com/contact) behind ReleaseHawk.
+Check the [documentation](https://releasehawk.com/docs.html).
+If those don’t help, you can always [ask the humans](https://releasehawk.com/support.html) behind ReleaseHawk.
 </details>
 
 ---

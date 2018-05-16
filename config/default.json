@@ -21,7 +21,7 @@
   "configFileName": "releasehawk.yml",
   "label": {
     "name": "releasehawk",
-    "color": "000000"
+    "color": "f17105"
   },
   "authentication": {
     "secret": "FEATHERS_AUTH_SECRET",

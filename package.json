@@ -32,7 +32,8 @@
     "develop:setup": "QUEUE=setup node -r dotenv/config queue",
     "develop:finalize": "QUEUE=finalize node -r dotenv/config queue",
     "develop:update": "QUEUE=update node -r dotenv/config queue",
-    "develop:sequelize": "node -r dotenv/config node_modules/.bin/sequelize"
+    "develop:sequelize": "node -r dotenv/config node_modules/.bin/sequelize",
+    "postinstall": "cd public && npm install"
   },
   "dependencies": {
     "@feathersjs/authentication": "^2.1.5",
