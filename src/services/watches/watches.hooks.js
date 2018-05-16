@@ -1,30 +1,28 @@
-const { disablePagination } = require('feathers-hooks-common');
+const { disablePagination, disallow, iff, isProvider } = require('feathers-hooks-common');
+const { authenticate } = require('@feathersjs/authentication').hooks;
 const dehydrate = require('feathers-sequelize/hooks/dehydrate');
 
-function expandRepo() {
+function includeRepo() {
   return function(context) {
-    if(context.params.query.expand && context.params.query.expand.split(',').includes('repo')) {
-      const reposModel = context.app.service('repos').Model;
-      const association = {
-        include: [{
-          model: reposModel,
-          as: 'repo'
-        }],
-      };
-      context.params.sequelize = Object.assign(association, { raw: false });
-      delete context.params.query.expand;
-    }
+    const reposModel = context.app.service('repos').Model;
+    const association = {
+      include: [{
+        model: reposModel,
+        as: 'repo'
+      }],
+    };
+    context.params.sequelize = Object.assign(association, { raw: false });
     return context;
   };
 }
 
 module.exports = {
   before: {
-    all: [],
-    find: [disablePagination(), expandRepo()],
-    get: [expandRepo()],
+    all: [iff(isProvider('external'), authenticate(['jwt']))],
+    find: [disablePagination(), includeRepo()],
+    get: [includeRepo()],
     create: [],
-    update: [],
+    update: [disallow('external')],
     patch: [],
     remove: []
   },

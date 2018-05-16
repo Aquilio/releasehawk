@@ -1,0 +1,33 @@
+{
+  "name": "releasehawk-ui",
+  "version": "0.0.1",
+  "description": "Website for ReleaseHawk",
+  "main": "index.js",
+  "scripts": {
+    "css-build": "npm run css-compile && npm run css-postcss && node_modules/.bin/cleancss -o css/main.css css/main.css",
+    "css-compile": "node-sass _sass/main.scss css/main.css",
+    "css-postcss": "postcss --use autoprefixer --output css/main.css css/main.css",
+    "css-watch": "npm run css-compile -- --watch",
+    "js-build": "npm run js-compile && node_modules/.bin/uglifyjs js/main.js -o js/main.js",
+    "js-compile": "babel _js --out-dir js",
+    "js-watch": "npm run js-compile -- --watch",
+    "build": "npm run css-build && npm run js-build",
+    "start": "npm run css-watch & npm run js-watch"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bulma": "^0.7.1",
+    "normalize.css": "^8.0.0"
+  },
+  "devDependencies": {
+    "autoprefixer": "^8.5.0",
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-es2015-ie": "^6.7.0",
+    "clean-css-cli": "^4.1.11",
+    "node-sass": "^4.9.0",
+    "postcss-cli": "^5.0.0",
+    "uglify-js": "^3.3.25"
+  }
+}

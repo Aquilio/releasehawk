@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ReleaseHawk | Docs</title>
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+
+<body>
+  <nav class="navbar is-transparent">
+    <div class="container">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="/">
+          <svg class="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 191.82 191.82">
+            <defs>
+              <style>
+                .cls-1 {
+                  fill: #f17105
+                }
+              </style>
+            </defs>
+            <g id="Layer_1" data-name="Layer 1">
+              <path class="cls-1" d="M150.32 156.22c-4.65-6.95-32.45-91.92 16.15-71.64 0 0 12-34.8-25.75-49.8 0 0 4.05-12.65-40.06-12.6-26.16.03-65.26 19.82-63.2 49.5l9.87-.27c3.14-32.48 41-38.1 53.33-38.48 32.31-1 33.31 9.4 33.31 9.4 27.09 10.88 22.59 27.54 22.59 27.54-53.73-5.15-17.4 87.35-17.4 87.35"
+              />
+              <ellipse class="cls-1" cx="106.36" cy="50.63" rx="7.21" ry="5.7" />
+              <path class="cls-1" d="M42.26 81.86L58.4 65.72H47.64l-10.76-1H26.12" />
+              <path class="cls-1" d="M84.9 114.17a10.79 10.79 0 0 0-9.3 5.49v-.1c-5.65-.11-12.22-1.94-16.85-5.49a39.62 39.62 0 0 1-10.17-13.13 10.73 10.73 0 0 0-6.72-19.11c-6 0-10.77 3.85-10.77 9.82 0 3.82 2.08 8.34 5.39 10.26v35.3c-3.18 1.88-5.39 4.32-5.39 8.25a10.73 10.73 0 0 0 10.77 10.76c5.92 0 10.73-3.77 10.75-9.69a10.71 10.71 0 0 0-5.37-9.32v-19.43a43.48 43.48 0 0 0 12.37 9.09 40.22 40.22 0 0 0 16 3.45v-.11a10.85 10.85 0 0 0 9.3 5.49 10.77 10.77 0 1 0 0-21.53zm-36.59 32.29a6.51 6.51 0 0 1-6.45 6.46c-3.5 0-6.46-4-6.46-7.46s3-5.46 6.46-5.46a6.55 6.55 0 0 1 6.45 6.46zm-6.45-47.35a6.46 6.46 0 1 1 6.45-6.46 6.51 6.51 0 0 1-6.45 6.46zm43 32.28a6.46 6.46 0 1 1 6.46-6.45 6.5 6.5 0 0 1-6.42 6.45z"
+              />
+            </g>
+            <circle cx="95.91" cy="95.91" r="91.91" fill="none" stroke="#f17105" stroke-miterlimit="10" stroke-width="8" id="Layer_2"
+              data-name="Layer 2" />
+          </svg>
+          <h1 class="title is-1">ReleaseHawk</h1>
+        </a>
+        <div class="navbar-burger burger" data-target="main-nav">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+
+      <div id="main-nav" class="navbar-menu">
+        <div class="navbar-end">
+          <a class="navbar-item" href="/">
+            Home
+          </a>
+          <a class="navbar-item" href="#how-it-works">
+            How it works
+          </a>
+          <a class="navbar-item" href="/docs.html">
+            Docs
+          </a>
+          <a class="navbar-item" href="/support.html">
+            Support
+          </a>
+          <div class="navbar-item">
+            <div class="field is-grouped">
+              <p class="control">
+                <a class="button is-primary" href="https://github.com/apps/releasehawk">
+                  <span>Install</span>
+                </a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <section class="section">
+    <div class="container content">
+      <h1 class="title is-2">Documentation</h1>
+      <p>Thanks for trying ReleaseHawk!. This documentation is all you need to get up and running.</p>
+      <h2 class="title is-3">What ReleaseHawk Does</h2>
+      <p>ReleaseHawk is a helpful bot that watches all of the GitHub and file/API dependencies of your project. As soon as they
+        are updated, a new pull request is opened for your review.</p>
+
+      <p>After a dependency is downloaded, you can run a local script, in any language, on your project and have the changes
+        incorporated in the pull request.</p>
+      <h2 class="title is-3">Doesn't
+        &lt;automated dependency tool&gt; handle this?</h2>
+      <p>No, not for dependencies that can't be handled with a package manager. ReleaseHawk was built to automate dependencies
+        that package managers can't handle like a data set from data.gov or commits from a GitHub repository. These "out-of-band"
+        dependencies don't appear in your package manager's central repository so these tools don't work for them.</p>
+      <p>That said, we highly recommend you use automated dependency management for all of your other dependencies.</p>
+      <h2 class="title is-3">Installation</h2>
+      <h3 class="title is-4 has-text-primary">1. Install ReleaseHawk</h3>
+      <p>Install the ReleaseHawk GitHub app on the repository's organization or user account. You only need to do this once
+        per organization/account.</p>
+      <p>To install, visit
+        <a href="https://github.com/apps/releasehawk">ReleaseHawk's GitHub page</a> and click
+        <strong>Install</strong>. If you've already installed it, click on
+        <strong>Configure</strong>.</p>
+      <h3 class="title is-4 has-text-primary">2. Grant repository access</h3>
+      <p>After installing or clicking Configure, you'll see ReleaseHawk's settings page. Add one or more repositories you want
+        ReleaseHawk to work with.</p>
+      <div class="columns">
+        <div class="column is-half is-offset-one-quarter">
+          <div class="box">
+            <img src="/images/setup.png" />
+          </div>
+        </div>
+      </div>
+      <h3 class="title is-4 has-text-primary">3. Enable ReleaseHawk</h3>
+      <p>ReleaseHawk creates an initial pull request that contains a sample configuration to get you started. Once you've updated
+        the configuration and merged the pull request, ReleaseHawk can start watching for updates.</p>
+      <p>
+        <strong>ReleaseHawk will only start watching for updates after this pull request is merged.</strong>
+      </p>
+      <p>If you're keen and already have a configuration file in your repository, a new issue will be created letting you know
+        ReleaseHawk is ready to go.</p>
+      <h3 class="title is-3">Configuration</h3>
+      <p>The
+        <code>.releasehawk.yml</code> configuration file tells ReleaseHawk what dependencies to watch and what to do with them.</p>
+      <p>There are four types of dependencies that can be watched:
+        <code>commit</code>,
+        <code>tag</code>,
+        <code>release</code> and
+        <code>file</code>. The commit, tag and release types are valid only for public GitHub repositories. The file type can be used for
+        any publically accessible URLs.</p>
+      <p>The full set of configuration options is below:</p>
+      <p>
+        <code>type</code>
+        <br />One of commit, tag, release or file.</p>
+      <p>
+        <code>destination</code>
+        <br />The path where the dependency will be placed.</p>
+      <p>
+        <code>script</code>
+        <br />The path to a local script that should be run after the update has been downloaded.</p>
+      <p>
+        <code>url</code>
+        <em>(file type only)</em>
+        <br />The url of the file.</p>
+      <p>
+        <code>commit_re</code>
+        <em>(commit type only)</em>
+        <br />A regular expression used to filter commit messages.</p>
+      <p>Here's an example configuration:</p>
+      <script src="https://gist.github.com/ccummings/fb5db011fa0094b38544dd86d56ad0a4.js"></script>
+      <p>If you made it here and haven't found the answer you're looking for,
+        <a href="mailto:support@releasehawk.com">let us know</a> and we'll be happy to help.</p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container top">
+      <p class="copyright">© ReleaseHawk 2018</p>
+      <nav>
+        <ul>
+          <li>
+            <a href="/docs.html">Docs</a>
+          </li>
+          <!-- <li><a href="/faq.html">FAQ</a></li> -->
+          <li>
+            <a href="/support.html">Support</a>
+            <!-- <li><a href="terms.html">Terms of Service</a> -->
+          </li>
+          <li>
+            <a href="https://github.com/Aquilio/releasehawk">GitHub</a>
+          </li>
+          <li>
+            <a href="/privacy-policy.html">Privacy Policy</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div class="container has-text-centered aquilio">
+      <p>Built by
+        <strong>
+          <a href="http://aquil.io">Aquilo.io</a>
+        </strong>
+      </p>
+    </div>
+  </footer>
+  <script type="text/javascript" src="/js/main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,43 @@
+/**
+
+Footer
+
+*/
+
+footer {
+  background: $primary;
+  color: $white;
+  padding: 1.5rem;
+  
+  .top {
+    align-items: stretch;
+    display: flex;
+  }
+
+  .copyright {
+  }
+
+  a {
+    color: $white;
+
+    &:hover {
+      color: $grey-dark;
+      text-decoration: underline;
+    }
+  }
+  
+  nav {
+    justify-content: flex-end;
+    margin-left: auto;
+
+    ul {
+      li {
+        display: inline-block;
+        padding: 0 0.75rem;
+      }
+    }
+  }
+  .aquilio {
+    padding-top: 1.5rem;
+  }
+}

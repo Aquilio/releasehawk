@@ -3,11 +3,11 @@ const md = require('./md');
 module.exports = ({
   repo, branch
 }) => md`
-Let's start automating updates for ${repo}!
+Let's start automating GitHub and file updates for ${repo}!
 
 This pull request creates a sample <code>.releasehawk.yml</code> file that you should update to point to the targets you want to watch.
 
-__Important: Releasehawk will only start watching for updates after you merge this initial pull request.__
+__Important: ReleaseHawk will only start watching for updates after you merge this initial pull request.__
 
 ---
 
@@ -23,9 +23,9 @@ __Important: Releasehawk will only start watching for updates after you merge th
 \`\`\`
 </details>
 
-<details><summary>How do updates work with Releasehawk?</summary>
+<details><summary>How do updates work with ReleaseHawk?</summary>
 
-After you merge this pull request, Releasehawk will create a new pull request whenever a change is detected in any of the targets you have configured.
+After you merge this pull request, ReleaseHawk will create a new pull request whenever a change is detected in any of the targets you have configured.
 </details>
 
 <details><summary>What can I watch?</summary>
@@ -54,31 +54,32 @@ Example:
 \`\`\`yaml
   # GitHub Release
   facebook/create-react-app
-    - type: release
-    - destination: ./vendor/cra
-    - script: ./bin/update-cra.sh
+    type: release
+    destination: ./vendor/cra
+    script: ./bin/update-cra.sh
   # GitHub Commit with filter
   feathersjs/feathers
-    - type: commit
-    - commit_re: chaore(package)
-    - destination: ./vendor/feathers
+    type: commit
+    commit_re: chore(package)
+    destination: ./vendor/feathers
   # File or API endpoint
-  https://sps-opendata.pilotsmartke.gov.hk/rest/getCarparkInfos
-    - type: file
-    - destination: ./data/carpark
-    - script: ./bin/process-data.js
+  carParkInfo
+    type: file
+    url: https://sps-opendata.pilotsmartke.gov.hk/rest/getCarparkInfos
+    destination: ./data/carpark
+    script: ./bin/process-data.js
 \`\`\`
 </details>
 
 <details><summary>Need more help?</summary>
 
-We curate a list of [frequently asked questions](https://releasehawk.com/faq).
-If those don’t help, you can always [ask the humans](https://releasehawk.com/contact) behind Releasehawk.
+Check the [documentation](https://releasehawk.com/docs.html).
+If those don’t help, you can always [ask the humans](https://releasehawk.com/support.html) behind ReleaseHawk.
 </details>
 
 ---
 
 Good luck with your project!
 
-Your [Releasehawk](https://releasehawk.com) bot
+Your [ReleaseHawk](https://releasehawk.com) bot
 `;

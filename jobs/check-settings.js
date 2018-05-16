@@ -14,6 +14,7 @@ app.setup();
 const github = app.get('github');
 const reposService = app.service('repos');
 const watchesService = app.service('watches');
+const rollbar = app.get('rollbar');
 
 /**
  * Getall repos
@@ -87,5 +88,6 @@ check().then(() => {
   process.exit(0);
 }).catch((e) => {
   console.error('ERROR running check-settings process', e);
+  rollbar.error('ERROR running check process', e);
   process.exit(e.code || 1);
 });

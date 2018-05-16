@@ -1,0 +1,47 @@
+/**
+
+Homepage hero
+
+*/
+
+.hero {
+  align-items: stretch;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .button {
+    width: 100%;
+  }
+}
+
+.hero-content {
+  margin-right: 1.5rem;
+}
+
+@include until($tablet) {
+  .hero-image {
+    margin-top:3rem;
+  }
+}
+
+@include from($tablet) {
+  .hero-columns {
+    display:flex;
+    justify-content: center
+  }
+
+  .hero-content, .hero-image {
+    width: calc(50% - 1.5rem);
+  }
+
+  .hero-content {
+    margin-right: 1.5rem;
+  }
+
+  .hero-image {
+    margin-left: 1.5rem;
+  }
+}
+
+

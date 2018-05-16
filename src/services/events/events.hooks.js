@@ -1,16 +1,16 @@
-const { iff } = require('feathers-hooks-common');
+const { iff, disallow } = require('feathers-hooks-common');
 const { isProduction } = require('../../hooks/predicates');
 const validateEventSignature = require('../../hooks/github/validate-event-signature');
 
 module.exports = {
   before: {
     all: [],
-    find: [],
-    get: [],
+    find: [disallow()],
+    get: [disallow()],
     create: [iff(isProduction(), validateEventSignature())],
-    update: [],
-    patch: [],
-    remove: []
+    update: [disallow()],
+    patch: [disallow()],
+    remove: [disallow()]
   },
 
   after: {

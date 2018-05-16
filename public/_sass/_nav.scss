@@ -1,0 +1,25 @@
+/**
+
+Navigation
+
+*/
+
+.navbar {
+  .navbar-brand {
+    a:hover {
+      text-decoration: none;
+    }
+
+    h1 {
+      padding-left: 0.75rem;
+    }
+
+    .logo {
+      width: 4rem;
+    }
+  }
+}
+
+a.navbar-item:hover {
+  text-decoration: underline;
+}

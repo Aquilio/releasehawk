@@ -1,5 +1,6 @@
 const amqp = require('amqplib');
 
+// TODO: Move this to feathers-amqp
 module.exports = function (app) {
   const amqpServer = app.get('amqp');
   const promise = amqp.connect(amqpServer);

@@ -36,7 +36,7 @@ const getOctoKit = function (options) {
 module.exports = function (options = {}) {
   return getOctoKit(Object.assign(options, {
     headers: {
-      'User-Agent': 'Releasehawk'
+      'User-Agent': 'ReleaseHawk'
     }
   }));
 };

@@ -1,5 +1,6 @@
 const dehydrate = require('feathers-sequelize/hooks/dehydrate');
-const { disablePagination } = require('feathers-hooks-common');
+const { authenticate } = require('@feathersjs/authentication').hooks;
+const { disablePagination, disallow, iff, isProvider } = require('feathers-hooks-common');
 
 function includeWatches() {
   return function(context) {
@@ -11,16 +12,17 @@ function includeWatches() {
       }],
     };
     context.params.sequelize = Object.assign(association, { raw: false });
+    return context;
   };
 }
 
 module.exports = {
   before: {
-    all: [],
+    all: [iff(isProvider('external'), authenticate(['jwt']))],
     find: [disablePagination(), includeWatches()],
     get: [includeWatches()],
     create: [],
-    update: [],
+    update: [disallow('external')],
     patch: [],
     remove: []
   },

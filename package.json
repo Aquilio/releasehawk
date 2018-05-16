@@ -32,7 +32,8 @@
     "develop:setup": "QUEUE=setup node -r dotenv/config queue",
     "develop:finalize": "QUEUE=finalize node -r dotenv/config queue",
     "develop:update": "QUEUE=update node -r dotenv/config queue",
-    "develop:sequelize": "node -r dotenv/config node_modules/.bin/sequelize"
+    "develop:sequelize": "node -r dotenv/config node_modules/.bin/sequelize",
+    "postinstall": "cd public && npm install"
   },
   "dependencies": {
     "@feathersjs/authentication": "^2.1.5",
@@ -63,6 +64,7 @@
     "promise-queue": "^2.2.5",
     "promise-retry": "^1.1.1",
     "retry-promise": "^1.0.0",
+    "rollbar": "^2.3.9",
     "sequelize": "^4.37.6",
     "sequelize-cli": "^4.0.0",
     "serve-favicon": "^2.5.0",

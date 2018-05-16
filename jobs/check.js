@@ -25,6 +25,7 @@ const github = app.get('github');
 const watchesService = app.service('watches');
 const updateQueueService = app.service('update-queue');
 const CHECK_INTERVAL = app.get('checkInterval');
+const rollbar = app.get('rollbar');
 
 /**
  * Get the watches that:
@@ -47,8 +48,7 @@ function findWatchesToCheck() {
         }
       ],
       $limit: -1,
-      active: true,
-      expand: 'repo'
+      active: true
     },
   });
 }
@@ -243,5 +243,6 @@ check().then(() => {
   process.exit(0);
 }).catch((e) => {
   console.error('ERROR running check process', e);
+  rollbar.error('ERROR running check process', e);
   process.exit(e.code || 1);
 });

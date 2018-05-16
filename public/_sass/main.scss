@@ -1,0 +1,23 @@
+@charset "utf-8";
+
+@import "bulma";
+@import "nav";
+@import "hero";
+@import "footer";
+
+/* Lists */
+@include until($tablet) {
+  .split-list-top {
+    padding-bottom: 0;
+  }
+  .split-list-bottom {
+    padding-top: 0;
+  }
+}
+
+.bulleted {
+  list-style-type: disc;
+  padding-left: 1em;
+}
+
+

@@ -20,7 +20,7 @@ async function cloneRepo(
   }
   const cli = await github.getCli({
     name: 'releasehawk[bot]',
-    email: 'releasehawk@aquil.io',
+    email: 'bot@releasehawk.com',
   });
   const api = github.getApi();
   const token = await github.getInstallationToken(installationId);

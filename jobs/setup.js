@@ -112,7 +112,7 @@ async function _setup(app, {installationId, repository, basePath}) {
       throw createJobError(`${logPrefix} error creating repo after config file was found`, e);
     });
     await createIssue({
-      github, installationId, owner, repo, title: 'Releasehawk is ready', body: getConfigExistsPRContent({ repo: `${owner}/${repo}`}), labels: [labelName]
+      github, installationId, owner, repo, title: 'ReleaseHawk is ready', body: getConfigExistsPRContent({ repo: `${owner}/${repo}`}), labels: [labelName]
     }).catch(e => {
       throw createJobError(`${logPrefix} Error creating an issue after cloning repository failed`, e);
     });
@@ -132,18 +132,6 @@ async function _setup(app, {installationId, repository, basePath}) {
   await cloneRepo({
     github, installationId, owner, repo, path: workingPath, branch: defaultBranch
   }).catch(async e => {
-    const issue = await createIssue({
-      github, installationId, owner, repo, title: 'Uh Oh', body: `There was a problem cloning your repository\nGit said"${getFatalMessage(e)}"\n`, labels: [labelName]
-    }).catch(e => {
-      throw createJobError(`${logPrefix} Error creating an issue after cloning repository failed`, e);
-    });
-    if(issue) {
-      await updateOrCreateRepo({
-        service: reposService, repoEntry, issue, repo, owner, githubId: repoId, installationId
-      }).catch(e => {
-        throw createJobError(`${logPrefix} Error updating repo after creating when cloning repository failed`, e);
-      });
-    }
     throw createJobError(`${logPrefix} Error cloning repository`, e);
   });
 
@@ -189,7 +177,7 @@ async function _setup(app, {installationId, repository, basePath}) {
   // Create a PR
   console.log(`${logPrefix} Creating pull request`);
   const pr = await createPullRequest({
-    github, installationId, owner, repo, head: branchName, base: defaultBranch, title: 'Setup Releasehawk', body: getInitialPRContent({ repo: `${owner}/${repo}`, branch: branchName}), labels: [labelName]
+    github, installationId, owner, repo, head: branchName, base: defaultBranch, title: 'Setup ReleaseHawk', body: getInitialPRContent({ repo: `${owner}/${repo}`, branch: branchName}), labels: [labelName]
   }).catch (e => {
     throw createJobError(`${logPrefix} Error creating a pull request`, e);
   });

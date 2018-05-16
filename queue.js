@@ -5,6 +5,8 @@ const app = require('./src/app');
 // setup has to be called so services run their setup funtions
 app.setup();
 
+const rollbar = app.get('rollbar');
+
 const jobs = {
   setup: require('./jobs/setup'),
   finalize: require('./jobs/finalize'),
@@ -28,6 +30,7 @@ function makeProcessor(channel) {
       const result = await jobs[QUEUE_NAME](app, JSON.parse(msg.content.toString()));
     } catch (e) {
       console.error(`[${QUEUE_NAME}] Failed to process message`, e);
+      rollbar.critical(`[${QUEUE_NAME}] Failed to process message`, e);
       channel.nack(msg, false, e.retry);
       return;
     }
