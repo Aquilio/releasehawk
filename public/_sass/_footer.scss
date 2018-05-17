@@ -14,9 +14,6 @@ footer {
     display: flex;
   }
 
-  .copyright {
-  }
-
   a {
     color: $white;
 
@@ -38,6 +35,19 @@ footer {
     }
   }
   .aquilio {
-    padding-top: 1.5rem;
+    padding-top: 2.5rem;
+  }
+}
+
+@include until($tablet) {
+
+  footer {
+    nav {
+      ul {
+        li {
+          display: block;
+        }
+      }
+    }
   }
 }

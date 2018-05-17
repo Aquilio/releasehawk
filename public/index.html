@@ -3,18 +3,18 @@
 
 <head>
 	<title>ReleaseHawk</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="Automated dependency updates. ReleaseHawk automatically creates pull requests as soon as your GitHub, file or API dependencies are updated.">
-  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
-  <link rel="stylesheet" href="/css/main.css?v=20180516">
-  <link rel="apple-touch-icon" sizes="180x180" href="https://releasehawk.com/images/apple-touch-icon.png?v=20180516">
-  <link rel="icon" type="image/png" href="https://releasehawk.com/images/favicon-32x32.png?v=20180516" sizes="32x32">
-  <link rel="icon" type="image/png" href="https://releasehawk.com/images/favicon-16x16.png?v=20180516" sizes="16x16">
-  <link rel="manifest" href="https://releasehawk.com/manifest.json?v=20180516">
-  <link rel="shortcut icon" href="https://releasehawk.com/favicon.ico?v=20180516">
-  <link rel="mask-icon" href="https://releasehawk.com/images/safari-pinned-tab.svg?v=20180516" color="#ef6e04">
-  <meta name="theme-color" content="#ef6e04">
+	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+	<link rel="stylesheet" href="/css/main.css?v=20180516">
+	<link rel="apple-touch-icon" sizes="180x180" href="https://releasehawk.com/images/apple-touch-icon.png?v=20180516">
+	<link rel="icon" type="image/png" href="https://releasehawk.com/images/favicon-32x32.png?v=20180516" sizes="32x32">
+	<link rel="icon" type="image/png" href="https://releasehawk.com/images/favicon-16x16.png?v=20180516" sizes="16x16">
+	<link rel="manifest" href="https://releasehawk.com/manifest.json?v=20180516">
+	<link rel="shortcut icon" href="https://releasehawk.com/favicon.ico?v=20180516">
+	<link rel="mask-icon" href="https://releasehawk.com/images/safari-pinned-tab.svg?v=20180516" color="#ef6e04">
+	<meta name="theme-color" content="#ef6e04">
 </head>
 
 <body>
@@ -41,7 +41,7 @@
 						<circle cx="95.91" cy="95.91" r="91.91" fill="none" stroke="#f17105" stroke-miterlimit="10" stroke-width="8" id="Layer_2"
 						 data-name="Layer 2" />
 					</svg>
-					<h1 class="title is-1">ReleaseHawk</h1>
+					<h1 class="title is-size-1 is-size-3-mobile">ReleaseHawk</h1>
 				</a>
 				<div class="navbar-burger burger" data-target="main-nav">
 					<span></span>
@@ -83,7 +83,7 @@
 
 						<h1 class="title is-3">Get automatic updates for the dependencies your package manager can't handle.</h1>
 						<!-- Automatically download any GitHub or file dependency as soon as it is updated.-->
-						<h2 class="subtitle is-4">ReleaseHawk automatically creates pull requests as soon as your GitHub, file or API dependencies are updated.</h2>
+						<h2 class="subtitle is-4">ReleaseHawk automatically creates pull requests as soon as your GitHub or file dependencies are updated.</h2>
 						<a class="button is-primary" href="https://github.com/apps/releasehawk">Install on GitHub</a>
 					</div>
 					<div class="hero-image">
@@ -125,8 +125,8 @@
 			<div class="columns">
 				<div class="column content">
 					<h2 class="title is-3" id="how-it-works">How it works</h2>
-					<p>ReleaseHawk is a helpful bot that watches all of the GitHub and file/API dependencies of your project. As soon as they
-						are updated, a new pull request is opened for your review.</p>
+					<p>ReleaseHawk is a GitHub app that watches all of the GitHub and file dependencies of your project. As soon as they are
+						updated, a new pull request is opened for your review.</p>
 					<p>After a dependency is downloaded, you can run a local script, in any language, on your project and have the changes
 						incorporated in the pull request.</p>
 					<p>You tell the bot what to watch by creating a
@@ -136,11 +136,24 @@
 					<h2 class="title is-3">Why it's awesome</h2>
 					<p>ReleaseHawk is perfect for dependencies that you use outside of your package manager. Whether that's a GitHub project
 						whose commits you depend on or an open data set you always want up to date, ReleaseHawk has you covered.</p>
-					<p>Let a bot take handle the chore of checking for updates and creating PRs.</p>
 				</div>
 			</div>
-			<div class="has-text-centered">
-				<a class="button is-primary" href="https://github.com/apps/releasehawk">Install ReleaseHawk on GitHub</a>
+			<div class="columns">
+				<div class="column is-three-fifths is-offset-one-fifth">
+					<div class="box">
+						<img src="/images/how-releasehawk-works.png" />
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="section">
+		<div class="container has-text-centered">
+			<h2 class="title is-3">Get started</h2>
+			<div>
+				<p>Try out ReleaseHawk in your project and Let a bot handle the chore of checking for updates and creating PRs.</p>
+				<a class="button is-primary get-started-button" href="https://github.com/apps/releasehawk">Install on GitHub now</a>
 			</div>
 		</div>
 	</section>
@@ -162,7 +175,7 @@
 						<a href="https://github.com/Aquilio/releasehawk">GitHub</a>
 					</li>
 					<li>
-						<a href="/privacy-policy.html">Privacy Policy</a>
+						<!-- <a href="/privacy-policy.html">Privacy Policy</a> -->
 					</li>
 				</ul>
 			</nav>

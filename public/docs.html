@@ -5,7 +5,7 @@
   <title>ReleaseHawk | Docs</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="Automated dependency updates. ReleaseHawk automatically creates pull requests as soon as your GitHub, file or API dependencies are updated.">
+  <meta name="description" content="Automated dependency updates. ReleaseHawk automatically creates pull requests as soon as your GitHub, file or API dependencies are updated.">
   <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
   <link rel="stylesheet" href="/css/main.css?v=20180516">
   <link rel="apple-touch-icon" sizes="180x180" href="https://releasehawk.com/images/apple-touch-icon.png?v=20180516">
@@ -55,7 +55,7 @@
           <a class="navbar-item" href="/">
             Home
           </a>
-          <a class="navbar-item" href="#how-it-works">
+          <a class="navbar-item" href="/#how-it-works">
             How it works
           </a>
           <a class="navbar-item" href="/docs.html">
@@ -88,8 +88,14 @@
 
       <p>After a dependency is downloaded, you can run a local script, in any language, on your project and have the changes
         incorporated in the pull request.</p>
-      <h2 class="title is-3">Doesn't
-        &lt;automated dependency tool&gt; handle this?</h2>
+      <div class="columns">
+        <div class="column is-three-fifths is-offset-one-fifth">
+          <div class="box">
+            <img src="/images/how-releasehawk-works.png" />
+          </div>
+        </div>
+      </div>
+      <h2 class="title is-3">Doesn't &lt;automated dependency tool&gt; handle this?</h2>
       <p>No, not for dependencies that can't be handled with a package manager. ReleaseHawk was built to automate dependencies
         that package managers can't handle like a data set from data.gov or commits from a GitHub repository. These "out-of-band"
         dependencies don't appear in your package manager's central repository so these tools don't work for them.</p>
@@ -171,7 +177,7 @@
             <a href="https://github.com/Aquilio/releasehawk">GitHub</a>
           </li>
           <li>
-            <a href="/privacy-policy.html">Privacy Policy</a>
+            <!-- <a href="/privacy-policy.html">Privacy Policy</a> -->
           </li>
         </ul>
       </nav>
@@ -186,13 +192,13 @@
   </footer>
   <script type="text/javascript" src="/js/main.js?v=20180516"></script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-89273617-3"></script>
-	<script>
-		window.dataLayer = window.dataLayer || [];
-		function gtag() { dataLayer.push(arguments); }
-		gtag('js', new Date());
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
 
-		gtag('config', 'UA-89273617-3');
-	</script>
+    gtag('config', 'UA-89273617-3');
+  </script>
 </body>
 
 </html>
