@@ -12,7 +12,7 @@ module.exports = function(getAppToken) {
     const appToken = await getAppToken();
     const api = getApi();
     api.authenticate({
-      type: 'integration',
+      type: 'app',
       token: appToken
     });
     const result = (await api.apps.createInstallationToken({
