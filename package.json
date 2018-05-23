@@ -47,6 +47,7 @@
     "cors": "^2.8.4",
     "date-fns": "^1.29.0",
     "debug": "^3.1.0",
+    "decompress": "^4.2.0",
     "download": "^6.2.5",
     "execa": "^0.10.0",
     "feathers-hooks-common": "^4.11.0",
