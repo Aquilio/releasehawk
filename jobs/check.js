@@ -105,7 +105,7 @@ async function getLatestChange({
     payload = await downloadFile({url: settings.url, dest: workingPath}).catch(e => {
       throw createJobError(`${logPrefix} Error getting latest file`, e);
     });
-    checksum = crypto.createHash('md5').update(payload).digest('hex'); //MD5 hash of content
+    checksum = payload;
     date = new Date();
     console.log(`${logPrefix} Latest update for file is ${checksum}`);
     break;
