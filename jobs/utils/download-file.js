@@ -9,6 +9,7 @@ const fse = require('fs-extra');
 const fs = require('fs');
 const download = require('download');
 const decompress = require('decompress');
+const mime = require('mime-types');
 
 module.exports = async function ({
   url, dest
