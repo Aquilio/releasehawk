@@ -25,7 +25,7 @@ const github = app.get('github');
 const watchesService = app.service('watches');
 const updateQueueService = app.service('update-queue');
 const CHECK_INTERVAL = app.get('checkInterval');
-const rollbar = app.get('rollbar');
+const rollbar = app.get('rollbarInstance');
 
 /**
  * Get the watches that:

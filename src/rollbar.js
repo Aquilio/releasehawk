@@ -2,8 +2,8 @@ const Rollbar = require('rollbar');
 
 
 module.exports = function (app) {
-  const config = app.get('roolbar');
-  const rollbar = new Rollbar({
+  const config = app.get('rollbar');
+  const instance = new Rollbar({
     accessToken: config.token,
     environment: process.env.NODE_ENV || 'development',
     endpoint: config.endpoint,
@@ -11,7 +11,7 @@ module.exports = function (app) {
     captureUnhandledRejections: true
   });
 
-  app.set('rollbar', rollbar);
+  app.set('rollbarInstance', instance);
 };
 
 

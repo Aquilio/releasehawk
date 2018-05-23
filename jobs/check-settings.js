@@ -14,7 +14,7 @@ app.setup();
 const github = app.get('github');
 const reposService = app.service('repos');
 const watchesService = app.service('watches');
-const rollbar = app.get('rollbar');
+const rollbar = app.get('rollbarInstance');
 
 /**
  * Getall repos

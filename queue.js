@@ -5,7 +5,7 @@ const app = require('./src/app');
 // setup has to be called so services run their setup funtions
 app.setup();
 
-const rollbar = app.get('rollbar');
+const rollbar = app.get('rollbarInstance');
 
 const jobs = {
   setup: require('./jobs/setup'),

@@ -20,6 +20,8 @@ const sequelize = require('./sequelize');
 const amqp = require('./amqp');
 // GitHub utilities
 const github = require('./github');
+// Rollbar logging
+const rollbar = require('./rollbar');
 
 const authentication = require('./authentication');
 
@@ -44,6 +46,7 @@ app.configure(express.rest());
 app.configure(sequelize);
 app.configure(amqp);
 app.configure(github);
+app.configure(rollbar);
 
 
 // Configure other middleware (see `middleware/index.js`)
