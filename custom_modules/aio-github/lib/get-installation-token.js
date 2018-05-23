@@ -19,7 +19,7 @@ module.exports = function(getAppToken) {
       installation_id
     })).data;
     // Ensure token is valid
-    api.authenticate({ type: 'token', token: result.token });
+    api.authenticate({ type: 'app', token: result.token });
     await retry(
       {
         max: 5,

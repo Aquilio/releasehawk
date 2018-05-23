@@ -24,7 +24,7 @@ async function cloneRepo(
   });
   const api = github.getApi();
   const token = await github.getInstallationToken(installationId);
-  api.authenticate({ type: 'token', token });
+  api.authenticate({ type: 'app', token });
   return cli(['clone', '--depth=50', `--branch=${branch}`, `https://x-access-token:${token}@github.com/${owner}/${repo}`, path]);
 }
 

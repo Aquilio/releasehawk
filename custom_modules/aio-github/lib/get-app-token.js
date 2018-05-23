@@ -19,7 +19,7 @@ module.exports = function ({ issueId, privateKey }) {
       jwt.sign({}, privateKey, {
         jwtid: uuidv4(),
         algorithm: 'RS256',
-        expiresIn: '10m',
+        expiresIn: '5m',
         issuer: issueId
       }, (error, token) => {
         if (error) {
