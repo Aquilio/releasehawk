@@ -1,5 +1,7 @@
 # ReleaseHawk
 
+This project has been archived as of August 12, 2019. Please see our [article](https://aquil.io/articles/archiving-releasehawk) for details. Note, the below documentation requires a GitHub application to be setup as our application has been removed.
+
 ## Getting Started
 
 - Install Node > 8.9
