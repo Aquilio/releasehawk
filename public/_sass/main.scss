@@ -1,9 +1,9 @@
 @charset "utf-8";
 
-@import "bulma";
-@import "nav";
-@import "hero";
-@import "footer";
+@import 'bulma';
+@import 'nav';
+@import 'hero';
+@import 'footer';
 
 /* Lists */
 @include until($tablet) {
@@ -24,4 +24,6 @@
   margin-top: 1.5rem;
 }
 
-
+.archived-message {
+  background: rgba(240, 111, 5, 0.3);
+}
