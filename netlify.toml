@@ -1,0 +1,7 @@
+[build]
+  base = "public/"
+
+  publish = "public/"
+
+  # Default build command.
+  command = "npm run build"
